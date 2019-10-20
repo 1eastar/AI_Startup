@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import Inputbox from '../Components/Inputbox';
+import IDPW from '../Components/IDPW';
+import CustomBotton from '../Components/Custombutton';
 
 export default class LoginScreen extends React.Component {
     constructor(props){
@@ -10,10 +13,28 @@ export default class LoginScreen extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-              <Text>LoginScreen</Text>
-              <Button 
-                title = 'login'
-                onPress = {() => this.props.navigation.navigate('AppExplain')}/>
+                <Image
+                    style={styles.logoimage}
+                    source={require('../assets/logo.png')}
+                    />
+                <View style={styles.loginitems}>
+                    {/* <Text style={{borderWidth:1, marginTop:-100}}>LoginScreen</Text> */}
+                    <Text style={{marginBottom:10, fontSize:25}}>Sign In</Text>
+                    <View style={styles.makerow}>
+                        <IDPW message='ID     :'/>
+                        <Inputbox message='아이디를 입력해주세요.        '/>
+                    </View>
+                    <View style={styles.makerow}>
+                        <IDPW message='PW   :'/>
+                        <Inputbox message='비밀번호를 입력해주세요.    '/>
+                    </View>
+                    <View style={styles.button}>
+                        <CustomBotton title='Login' buttonColor='#097234' titleColor='#fff' onPress={() => this.props.navigation.navigate('AppExplain')}/>
+                    </View>
+                    {/* <Button 
+                        title = 'login'
+                        onPress = {() => this.props.navigation.navigate('AppExplain')}/> */}
+                </View>
             </View>
         );
     }
@@ -21,9 +42,33 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    // justifyContent: 'center',
+    // height:"50%"
+  },
+  loginitems:{
+    flex:1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth:1,
+    borderRadius:50,
+    padding:30,
+    marginBottom:80,
+    marginTop:80,
   },
+  makerow:{
+    flexDirection:'row',
+    alignItems:'flex-start',
+  },
+  logoimage: {
+    flex:1,
+    resizeMode:'center',
+  },
+  button: {
+      height:50,
+      paddingTop:5,
+  }
 });

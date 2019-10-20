@@ -19,7 +19,7 @@ const AppStackNavigator = createStackNavigator(
   TestExplain : {screen : TestExplainScreen},
   },
   {
-    initialRouteName : 'Login',
+    initialRouteName : 'Test',
   }
 );
 
