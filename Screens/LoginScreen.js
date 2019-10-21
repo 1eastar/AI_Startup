@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, ScrollView } from 'react-native';
 import Inputbox from '../Components/Inputbox';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth:1,
-    borderRadius:50,
+    borderRadius:10,
     padding:30,
     marginBottom:80,
     marginTop:80,

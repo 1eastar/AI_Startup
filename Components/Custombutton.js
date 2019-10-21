@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
       marginBottom: 10,
       borderRadius: 5,
       paddingHorizontal:10,
-      height:10
+      height:10,
     },
     title: {
       fontSize: 15,

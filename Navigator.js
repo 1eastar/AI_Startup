@@ -12,14 +12,19 @@ import TestExplainScreen from './Screens/TestExplainScreen';
 const AppStackNavigator = createStackNavigator(
   {
   Main : {screen : MainScreen},
-  AppExplain : {screen : AppExplainScreen},
+  AppExplain : {screen : AppExplainScreen,},
   Login : {screen : LoginScreen},
   Result : {screen : ResultScreen},
-  Test : {screen : TestScreen},
+  Test : {
+      screen : TestScreen,
+      navigationOptions: {
+          header:null
+      }
+    },
   TestExplain : {screen : TestExplainScreen},
   },
   {
-    initialRouteName : 'Test',
+    initialRouteName : 'Login',
   }
 );
 

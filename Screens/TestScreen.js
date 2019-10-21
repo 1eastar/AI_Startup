@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, StatusBar, TouchableOpacity,  } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, StatusBar, TouchableOpacity, Dimensions  } from 'react-native';
 import {Header, Left, Right, Body} from 'native-base';
 import {AntDesign, Feather, MaterialCommunityIcons, Ionicons} from "@expo/vector-icons"
 //feather circle , sim check
@@ -25,14 +25,15 @@ export default class TestScreen extends React.Component {
                 style={{backgroundColor:'green'}}
               />*/}
               <Header style={styles.header}>
-                <Left><Ionicons name='ios-arrow-round-back'/></Left>
-                <Body><Text>남은 시간 00:00</Text></Body>
-                <Right><Text>15 / 15</Text></Right>
+                <Left>
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('TestExplain')}}>
+                    <Ionicons name='ios-arrow-round-back' size={30}/>
+                  </TouchableOpacity>
+                </Left>
+                <Body><Text style={{color:'white', fontSize:20}}>     남은 시간 00:00</Text></Body>
+                <Right><Text style={{color:'white', fontSize:20}}>15 / 15</Text></Right>
               </Header>
 
-              <View>
-                <Text>TestScreen</Text>
-              </View>
 
               <Image 
                 style={styles.problem}
@@ -72,13 +73,14 @@ export default class TestScreen extends React.Component {
                 </View>
               </View>
 
-              <CustomBotton 
-                title = 'Finish'
-                buttonColor = '#45c97a'
-                titleColor = '#fff'
-                onPress = {() => {this.props.navigation.navigate('Result')}}
-                style={{height:20}}
-              />
+              <View style={styles.button}>
+                <CustomBotton 
+                  title = 'Finish'
+                  buttonColor = '#45c97a'
+                  titleColor = '#fff'
+                  onPress = {() => {this.props.navigation.navigate('Result')}}
+                />
+              </View>
               {/*<Button 
                 title = 'Finish'
                 onPress = {() => this.props.navigation.navigate('Result')}/>*/}
@@ -87,17 +89,22 @@ export default class TestScreen extends React.Component {
     }
 }
 
+const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     borderWidth:1,
   },
   header: {
     //
-    borderWidth:1,
+    //borderWidth:1,
+    width:width,
+    backgroundColor:'#097234',
+    marginTop:23,
   },
   problem: {
     //
@@ -107,5 +114,13 @@ const styles = StyleSheet.create({
   },
   makerow: {
     flexDirection:'row',
-  }
+  },
+  button: {
+    //
+    //borderWidth:1,
+    height:50,
+    alignSelf:'flex-end',
+    marginTop:50,
+    marginRight:20,
+  },
 });
