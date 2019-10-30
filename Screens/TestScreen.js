@@ -4,6 +4,7 @@ import {Header, Left, Right, Body} from 'native-base';
 import {AntDesign, Feather, MaterialCommunityIcons, Ionicons} from "@expo/vector-icons"
 //feather circle , sim check
 import CustomBotton from '../Components/Custombutton';
+import Five_Answer from '../Components/five_answer';
 
 export default class TestScreen extends React.Component {
     static navigationOptions = {
@@ -41,36 +42,7 @@ export default class TestScreen extends React.Component {
               />
 
               <View style={styles.answers}>
-                <View style={styles.makerow}>
-                  <TouchableOpacity>
-                    <Feather name="circle" size={20}/>
-                  </TouchableOpacity>
-                  <Text>a reflection of the prevailing literary trends</Text>
-                </View>
-                <View style={styles.makerow}>
-                  <TouchableOpacity>
-                    <Feather name="circle" size={20}/>
-                  </TouchableOpacity>
-                  <Text>something that leaves no room for alternative ideas</Text>
-                </View>
-                <View style={styles.makerow}>
-                  <TouchableOpacity>
-                    <Feather name="circle" size={20}/>
-                  </TouchableOpacity>
-                  <Text>an insufficient explanation that misleads the readers</Text>
-                </View>
-                <View style={styles.makerow}>
-                  <TouchableOpacity>
-                    <MaterialCommunityIcons name="checkbox-marked-circle" size={20}/>
-                  </TouchableOpacity>
-                  <Text>one more interpretation of the text among many others</Text>
-                </View>
-                <View style={styles.makerow}>
-                  <TouchableOpacity>
-                    <Feather name="circle" size={20}/>
-                  </TouchableOpacity>
-                  <Text>another example of authors caring less about being original</Text>
-                </View>
+                <Five_Answer />
               </View>
 
               <View style={styles.button}>
