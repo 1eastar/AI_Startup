@@ -8,6 +8,8 @@ import LoginScreen from './Screens/LoginScreen';
 import ResultScreen from './Screens/ResultScreen';
 import TestScreen from './Screens/TestScreen';
 import TestExplainScreen from './Screens/TestExplainScreen';
+import PlanScreen from './Screens/PlanScreen';
+import MypageScreen from './Screens/MypageScreen';
 
 const AppStackNavigator = createStackNavigator(
   {
@@ -31,6 +33,8 @@ const AppStackNavigator = createStackNavigator(
 const bottomTapNavi = createBottomTabNavigator(
   {
     Main: {screen : MainScreen},
+    Mypage: {screen : MypageScreen},
+    Plan: {screen : PlanScreen},
   },
   {
     initialRouteName : 'Main',
