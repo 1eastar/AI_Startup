@@ -16,13 +16,15 @@ export default class Five_answer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            answers:[
-                {content:'content1', checked:false},
-                {content:'content2', checked:false},
-                {content:'content3', checked:false},
-                {content:'content4', checked:false},
-                {content:'content5', checked:false},
-            ],
+            
+            answers: props.answers,
+            // answers:[
+            //     {content:'content1', checked:false},
+            //     {content:'content2', checked:false},
+            //     {content:'content3', checked:false},
+            //     {content:'content4', checked:false},
+            //     {content:'content5', checked:false},
+            // ],
             checked:[false, false, false, false, false],
         };
     }
@@ -47,13 +49,15 @@ export default class Five_answer extends React.Component {
         )
     }
 
-    setContent = (props) => {
+    setContent = () => {
         // props로 받은 answer content를 setState로 바꾸기
-        
+        let newAnswers = this.state.answers;
+        newAnswers[0] = { content: 'newContent', checked: false };
+        this.setState({answers:newAnswers})
     }
     
     render(){
-        this.setContent(props);
+        this.setContent();
         return (
             <FlatList 
                 data={this.state.answers}

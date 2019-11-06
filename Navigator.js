@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import MainScreen from './Screens/MainScreen';
 import AppExplainScreen from './Screens/AppExplainScreen';
@@ -27,5 +27,16 @@ const AppStackNavigator = createStackNavigator(
     initialRouteName : 'Login',
   }
 );
+
+const bottomTapNavi = createBottomTabNavigator(
+  {
+    Main: {screen : MainScreen},
+  },
+  {
+    initialRouteName : 'Main',
+    mode:'modal',
+    headerMode: 'none',
+  }
+)
 
 export default createAppContainer(AppStackNavigator);

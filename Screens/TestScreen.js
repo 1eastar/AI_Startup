@@ -4,7 +4,7 @@ import {Header, Left, Right, Body} from 'native-base';
 import {AntDesign, Feather, MaterialCommunityIcons, Ionicons} from "@expo/vector-icons"
 //feather circle , sim check
 import CustomBotton from '../Components/Custombutton';
-import Five_Answer from '../Components/five_answer';
+import Five_answer from '../Components/five_answer';
 
 export default class TestScreen extends React.Component {
     static navigationOptions = {
@@ -13,7 +13,10 @@ export default class TestScreen extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+          question: props.question,
+          answers: props.answers
+        };  // 이 questions와 answers는 어디서?
     }
     
     render(){
@@ -42,7 +45,7 @@ export default class TestScreen extends React.Component {
               />
 
               <View style={styles.answers}>
-                <Five_Answer />
+                <Five_answer answers={this.state.answers}/>
               </View>
 
               <View style={styles.button}>
