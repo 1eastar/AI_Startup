@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button, Image, TouchableOpacity } from 'react-native';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
 
@@ -15,9 +15,19 @@ export default class MainScreen extends React.Component {
               <View style={styles.select}>
                 <Text style={{fontSize:20, fontWeight:'bold', marginLeft:40}}>과목 선택</Text>
                 <Text style={{fontSize:14, marginLeft:40}}>각 과목을 클릭하시면 테스트를 볼 수 있습니다.</Text>
-                <TouchableOpacity onPress={() => {this.props.navigation.navigate('TestExplain')}}>
-                  <Image style={styles.imageitems} source={require('../assets/english.png')}/>
-                </TouchableOpacity>
+                <ScrollView 
+                  style={styles.selectImage}
+                  horizontal={true}>
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('TestExplain')}}>
+                    <Image style={styles.imageitems} source={require('../assets/english.png')}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('TestExplain')}}>
+                    <Image style={styles.imageitems} source={require('../assets/english.png')}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('TestExplain')}}>
+                    <Image style={styles.imageitems} source={require('../assets/english.png')}/>
+                  </TouchableOpacity>
+                </ScrollView>
                 {/*<Button 
                   title = 'Start Test'
                   onPress = {() => this.props.navigation.navigate('TestExplain')}/>*/}
@@ -44,6 +54,11 @@ const styles = StyleSheet.create({
   plan: {
     flex:1,
     //marginTop:150,
+  },
+  selectImage: {
+    flexDirection: 'row',
+    backgroundColor:'#ece6cc',
+    //
   },
   imageitems: {
     //resizeMode:'center',

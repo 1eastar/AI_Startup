@@ -15,8 +15,33 @@ export default class TestScreen extends React.Component {
         super(props);
         this.state = {
           question: props.question,
-          answers: props.answers
+          answers: props.answers,
+
+          startTime: new Date(),
+          timelimit:15*60*1000, // 15분
         };  // 이 questions와 answers는 어디서?
+    }
+
+    componentDidMount(){
+      //
+      this.timer = setInterval(
+        () => this.tick, 1000
+      );
+    }
+
+    componentWillMount(){
+      //
+      clearInterval(this.timer);
+    }
+
+    _tick(){
+      const newTimelimit = this.state.timelimit;
+      newTimelimit -= 1000;
+      this.setState({timelimit:newTimelimit});
+      
+      if(this.state.timelimit == 0){
+        this.props.navigation.navigate('Result');
+      }
     }
     
     render(){
@@ -34,7 +59,7 @@ export default class TestScreen extends React.Component {
                     <Ionicons name='ios-arrow-round-back' size={30}/>
                   </TouchableOpacity>
                 </Left>
-                <Body><Text style={{color:'white', fontSize:20}}>     남은 시간 00:00</Text></Body>
+                <Body><Text style={{color:'white', fontSize:20}}>     남은 시간 {this.state.timelimit/(1000*60)}:{this.state.timelimit/(1000)}</Text></Body>
                 <Right><Text style={{color:'white', fontSize:20}}>15 / 15</Text></Right>
               </Header>
 
