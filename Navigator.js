@@ -32,11 +32,14 @@ const AppStackNavigator = createStackNavigator(
 
 const bottomTapNavi = createBottomTabNavigator(
   {
-    Main: {screen : MainScreen},
     Mypage: {screen : MypageScreen},
+    Main: {screen : MainScreen},
     Plan: {screen : PlanScreen},
   },
   {
+    tabBarOptions : {
+      showLabel:false,
+    },
     initialRouteName : 'Main',
     mode:'modal',
     headerMode: 'none',

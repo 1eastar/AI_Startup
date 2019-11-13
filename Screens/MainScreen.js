@@ -2,8 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Button, Image, TouchableOpacity } from 'react-native';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
+import {AntDesign} from "@expo/vector-icons";
 
 export default class MainScreen extends React.Component {
+    static navigationOptions = {
+      tabBarIcon: ({tintColor}) => {
+        <AntDesign name="home" size={25} style={{ tintColor }} />
+      },
+      tabBaronPress: ({navigation}) => {
+          navigation.navigate('Main');
+      }
+    }
     constructor(props){
         super(props);
         this.state = {};
@@ -66,5 +75,6 @@ const styles = StyleSheet.create({
     //marginBottom:100,
     //paddingBottom:100,
     alignItems: 'center',
+    marginBottom: 30,
   },
 });

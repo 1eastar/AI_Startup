@@ -1,13 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Dimensions } from 'react-native';
 
-const Inputbox = ({message}) => {
+const Inputbox = ({message, value, changeText, addPlan}) => {
     return (
             <TextInput
+                value={value}
                 style={styles.input}
                 placeholder = {`${message}`}
                 maxLength = {15}
                 returnKeyType = 'done'
+                onChangeText={changeText}
+                onEndEditing={addPlan}
                 />
     );
 }

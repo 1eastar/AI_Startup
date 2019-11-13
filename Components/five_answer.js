@@ -17,14 +17,14 @@ export default class Five_answer extends React.Component {
         super(props);
         this.state = {
             
-            answers: props.answers,
-            // answers:[
-            //     {content:'content1', checked:false},
-            //     {content:'content2', checked:false},
-            //     {content:'content3', checked:false},
-            //     {content:'content4', checked:false},
-            //     {content:'content5', checked:false},
-            // ],
+            //answers: props.answers,
+            answers:[   // 임시 test용
+                {content:'content1', checked:false},
+                {content:'content2', checked:false},
+                {content:'content3', checked:false},
+                {content:'content4', checked:false},
+                {content:'content5', checked:false},
+            ],
             checked:[false, false, false, false, false],
         };
     }

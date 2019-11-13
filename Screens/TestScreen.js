@@ -14,7 +14,7 @@ export default class TestScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-          question: props.question,
+          question: props.question, // 백엔드 작업 , props로 받을 게 아님.
           answers: props.answers,
 
           startTime: new Date(),
@@ -32,6 +32,7 @@ export default class TestScreen extends React.Component {
     componentWillMount(){
       //
       clearInterval(this.timer);
+      this.state.timelimit = 15*60*1000;  // 15분 재설정
     }
 
     _tick(){

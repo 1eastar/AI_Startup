@@ -1,10 +1,13 @@
-모든 스크린 header 없애기
-스크린 별 header 위치에 뒤로가기 키 설정
-MainScreen ScrollView 설정(일단 영어 이미지 여러개로)
-남은 시간 타이머
+모든 스크린 header 없애기 ()
+스크린 별 header 위치에 뒤로가기 키 설정 ()
+MainScreen ScrollView 설정(일단 영어 이미지 여러개로) (O)
+남은 시간 타이머 (O)
 
 
-탭네비 - 할일추가하기, 메인, 마이페이지
+//탭네비 - 할일추가하기, 메인, 마이페이지
 
-할일추가하기 페이지 - todo app처럼 
-마이페이지 - ?
+탭네비 설정 (O)
+할일추가하기 페이지 - todo app처럼 (O)
+마이페이지 - ? ()
+
+TestScreen, AppExplainScreen state 설정 ()

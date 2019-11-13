@@ -1,8 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import CustomBotton from '../Components/Custombutton';
+import {FontAwesome} from "@expo/vector-icons";
 
 export default class MypageScreen extends React.Component {
+    static navigationOptions = {
+        tabBarIcon: ({tintColor}) => {
+            <FontAwesome name="user-o" size={25} style={{ tintColor }} />
+        },
+        tabBaronPress: ({navigation}) => {
+            navigation.navigate('Mypage');
+        }
+    }
+
     constructor(props){
         super(props);
         this.state = {};
