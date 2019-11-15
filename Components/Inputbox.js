@@ -8,9 +8,9 @@ const Inputbox = ({message, value, changeText, addPlan}) => {
                 style={styles.input}
                 placeholder = {`${message}`}
                 maxLength = {15}
-                returnKeyType = 'done'
                 onChangeText={changeText}
                 onEndEditing={addPlan}
+                returnKeyType = 'done'
                 />
     );
 }
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     // marginHorizontal:-100,
     // width:50,
   },
-  input : {
+  input : { 
     color: '#3e4fee',
     borderBottomWidth:1,
     marginLeft:5,

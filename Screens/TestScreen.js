@@ -14,30 +14,34 @@ export default class TestScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-          question: props.question, // 백엔드 작업 , props로 받을 게 아님.
-          answers: props.answers,
+          question: '1',//props.question,
+          answers: '2', //props.answers,
 
           startTime: new Date(),
-          timelimit:15*60*1000, // 15분
-        };  // 이 questions와 answers는 어디서?
+          timelimit:15*60-1, // 15분
+          // mins:Math.floor(timelimit/60),
+          // secs:timelimit - mins*60,
+        };  // 이 questions와 answers는 어디서? -> 백엔드 작업 , props로 받을 게 아님.
     }
 
     componentDidMount(){
       //
       this.timer = setInterval(
-        () => this.tick, 1000
+        () => this.tick(), 1000
       );
     }
 
-    componentWillMount(){
+    componentWillUnmount() {
       //
       clearInterval(this.timer);
-      this.state.timelimit = 15*60*1000;  // 15분 재설정
+      this.setState({
+        timelimit:15*60-1, // 15분
+      });
     }
 
-    _tick(){
-      const newTimelimit = this.state.timelimit;
-      newTimelimit -= 1000;
+    tick(){
+      let newTimelimit = this.state.timelimit;
+      newTimelimit -= 1;
       this.setState({timelimit:newTimelimit});
       
       if(this.state.timelimit == 0){
@@ -60,7 +64,7 @@ export default class TestScreen extends React.Component {
                     <Ionicons name='ios-arrow-round-back' size={30}/>
                   </TouchableOpacity>
                 </Left>
-                <Body><Text style={{color:'white', fontSize:20}}>     남은 시간 {this.state.timelimit/(1000*60)}:{this.state.timelimit/(1000)}</Text></Body>
+                <Body><Text style={{color:'white', fontSize:20}}>     남은 시간 {Math.floor(this.state.timelimit/60)}:{this.state.timelimit - Math.floor(this.state.timelimit/60)*60}</Text></Body>
                 <Right><Text style={{color:'white', fontSize:20}}>15 / 15</Text></Right>
               </Header>
 
@@ -71,7 +75,7 @@ export default class TestScreen extends React.Component {
               />
 
               <View style={styles.answers}>
-                <Five_answer answers={this.state.answers}/>
+                <Five_answer />
               </View>
 
               <View style={styles.button}>
@@ -82,9 +86,9 @@ export default class TestScreen extends React.Component {
                   onPress = {() => {this.props.navigation.navigate('Result')}}
                 />
               </View>
-              {/*<Button 
+              {/* <Button 
                 title = 'Finish'
-                onPress = {() => this.props.navigation.navigate('Result')}/>*/}
+                onPress = {() => this.props.navigation.navigate('Result')}/> */}
             </View>
         );
     }
@@ -112,6 +116,7 @@ const styles = StyleSheet.create({
   },
   answers: {
     //
+    //borderWidth:1
   },
   makerow: {
     flexDirection:'row',

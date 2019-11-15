@@ -10,4 +10,8 @@ MainScreen ScrollView 설정(일단 영어 이미지 여러개로) (O)
 할일추가하기 페이지 - todo app처럼 (O)
 마이페이지 - ? ()
 
-TestScreen, AppExplainScreen state 설정 ()
+TestExplainScreen, AppExplainScreen state 설정 ()
+
+
+planscreen flatlist 작동 오류 (O)
+TestScreen timer 작동 안 함 (O)

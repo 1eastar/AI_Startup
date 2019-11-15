@@ -19,11 +19,11 @@ export default class Five_answer extends React.Component {
             
             //answers: props.answers,
             answers:[   // 임시 test용
-                {content:'content1', checked:false},
-                {content:'content2', checked:false},
-                {content:'content3', checked:false},
-                {content:'content4', checked:false},
-                {content:'content5', checked:false},
+                {content:'a reflection of the prevailing literary trends', checked:false},
+                {content:'something that leaves no room for alternative ideas', checked:false},
+                {content:'an insufficient explanation that misleads the readers', checked:false},
+                {content:'one more interpretation of the text among many others', checked:false},
+                {content:'another example of authors caring less about being original', checked:false},
             ],
             checked:[false, false, false, false, false],
         };
@@ -57,13 +57,15 @@ export default class Five_answer extends React.Component {
     }
     
     render(){
-        this.setContent();
+        //this.setContent();
         return (
-            <FlatList 
-                data={this.state.answers}
-                renderItem={this._makeAnswer}
-                keyExtractor={(item, index) => {return `${index}`}} 
-            />
+            <View style={styles.answers}>
+                <FlatList 
+                    data={this.state.answers}
+                    renderItem={this._makeAnswer}
+                    keyExtractor={(item, index) => {return `${index}`}} 
+                />
+            </View>
         );
     }
 }
@@ -81,8 +83,9 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 15,
     },
-    answer: {
+    answers: {
         //
+        height:150
     },
     makerow:{
         flexDirection:'row',
