@@ -24,7 +24,7 @@ export default class PlanScreen extends React.Component {
             inputValue:"",
             plans:[
                 {
-                    title: '1', isChecked:false,
+                    title: '1', isChecked:false,    // test 용
                 },
                 {
                     title: '2', isChecked:false,
