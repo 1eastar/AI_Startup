@@ -11,6 +11,7 @@ import TestScreen from './Screens/TestScreen';
 import TestExplainScreen from './Screens/TestExplainScreen';
 import PlanScreen from './Screens/PlanScreen';
 import MypageScreen from './Screens/MypageScreen';
+import SignupScreen from './Screens/SignupScreen';
 
 const bottomTapNavi = createBottomTabNavigator(
   {
@@ -23,8 +24,6 @@ const bottomTapNavi = createBottomTabNavigator(
       showLabel:false,
     },
     initialRouteName : 'Main',
-    mode:'modal',
-    headerMode : 'none',
   }
 )
 
@@ -33,6 +32,7 @@ const AppStackNavigator = createStackNavigator(
   Tab : bottomTapNavi,
   AppExplain : {screen : AppExplainScreen,},
   Login : {screen : LoginScreen},
+  Signup : {screen : SignupScreen},
   Result : {screen : ResultScreen},
   Test : {
       screen : TestScreen,
@@ -44,6 +44,8 @@ const AppStackNavigator = createStackNavigator(
   },
   {
     initialRouteName : 'Login',
+    mode:'modal',
+    headerMode : 'none',
   }
 );
 

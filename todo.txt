@@ -1,5 +1,5 @@
-모든 스크린 header 없애기 ()
-스크린 별 header 위치에 뒤로가기 키 설정 ()
+모든 스크린 header 없애기 (O)
+스크린 별 header 위치에 뒤로가기 키 설정 (O)
 MainScreen ScrollView 설정(일단 영어 이미지 여러개로) (O)
 남은 시간 타이머 (O)
 
@@ -8,10 +8,22 @@ MainScreen ScrollView 설정(일단 영어 이미지 여러개로) (O)
 
 탭네비 설정 (O)
 할일추가하기 페이지 - todo app처럼 (O)
-마이페이지 - ? ()
+마이페이지 - ? ()  - 안 만들기로 함.
 
-TestExplainScreen, AppExplainScreen state 설정 ()
+TestExplainScreen, AppExplainScreen state 설정 () - 필요없을 듯
 
 
 planscreen flatlist 작동 오류 (O)
 TestScreen timer 작동 안 함 (O)
+
+
+
+
+CustomHeader menu 클릭 시 overlay 설정()
+MainScreen에서 header 뒤로가기 안 먹음 ()
+
+TestScreen fetch 세팅 ()
+
+SignupScreen 만들기 ()
+SignupScreen fetch 세팅 ()
+LoginScreen fetch 세팅 ()

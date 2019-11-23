@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import Custombotton from '../Components/Custombutton';
+import CustomHeader from "../Components/CustomHeader";
 
 export default class ResultScreen extends React.Component {
     constructor(props){
@@ -11,6 +12,7 @@ export default class ResultScreen extends React.Component {
     render(){
         return (
             <View style={styles.container}>
+              <CustomHeader />
               <Text style={{fontSize:20, marginLeft:30}}>수고하셨습니다!</Text>
               <View style={styles.makerow}>
                 <Text style={{fontSize:100, fontWeight:'bold', marginLeft:30}}>12/15</Text>

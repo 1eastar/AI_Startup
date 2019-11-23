@@ -4,7 +4,7 @@ import Inputbox from '../Components/Inputbox';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
 
-export default class LoginScreen extends React.Component {
+export default class SignupScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {};
@@ -29,7 +29,7 @@ export default class LoginScreen extends React.Component {
                         <Inputbox message='비밀번호를 입력해주세요.    '/>
                     </View>
                     <View style={styles.button}>
-                        <CustomBotton title='Login' buttonColor='#11a84e' titleColor='#fff' onPress={() => this.props.navigation.navigate('AppExplain')}/>
+                        <CustomBotton title='Login' buttonColor='#097234' titleColor='#fff' onPress={() => this.props.navigation.navigate('AppExplain')}/>
                     </View>
                     {/* <Button 
                         title = 'login'
@@ -66,11 +66,9 @@ const styles = StyleSheet.create({
   logoimage: {
     flex:1,
     resizeMode:'center',
-    marginTop:60,
   },
   button: {
       height:50,
       paddingTop:5,
-      marginTop:10,
   }
 });

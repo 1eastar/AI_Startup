@@ -19,11 +19,11 @@ export default class Five_answer extends React.Component {
             
             //answers: props.answers,
             answers:[   // 임시 test용
-                {content:'a reflection of the prevailing literary trends', checked:false},
-                {content:'something that leaves no room for alternative ideas', checked:false},
-                {content:'an insufficient explanation that misleads the readers', checked:false},
-                {content:'one more interpretation of the text among many others', checked:false},
-                {content:'another example of authors caring less about being original', checked:false},
+                {content:this.props.answers.first, checked:false},
+                {content:this.props.answers.second, checked:false},
+                {content:this.props.answers.third, checked:false},
+                {content:this.props.answers.fourth, checked:false},
+                {content:this.props.answers.fifth, checked:false},
             ],
             checked:[false, false, false, false, false],
         };
