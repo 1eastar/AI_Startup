@@ -37,22 +37,43 @@ export default class TestScreen extends React.Component {
         };
     }
 
-    // html로 fetch되는 현상 어떻게??????????????????????????????
+    /// html로 fetch되는 현상 어떻게??????????????????????????????
     getProblemInfo = () => {
       const newProblemNum = this.state.problemNum + 1;
-      this.setState({problemNum:newProblemNum})
-      fetch("https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem?schema=team_seven")
+      let bodyValue = {schema: 'team_seven'};
+      this.setState({problemNum: newProblemNum});
+      fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem', {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+          },
+          body: JSON.stringify(bodyValue)
+      })
       .then(response => response.json())
       .then(response => {
-        this.setState({problem : {
-          answer : response.problem[0].answer,
-          answers : {first:response.problem[0].ex1, second:response.problem[0].ex2, third:response.problem[0].ex3, fourth:response.problem[0].ex4, fifth:response.problem[0].ex5},
-          problemImage : response.problem[0].img,
-          problemID : response.problem[0].ID,
-        }})
-        console.log(this.state.problem)
+          let result = response.results[0];
+          if (result.length === 0) {
+              console.log('empty result came back from API call')
+          } else {
+              this.setState({
+                  problem: {
+                      answer: result.answer,
+                      answers: {
+                          first: result.ex1,
+                          second: result.ex2,
+                          third: result.ex3,
+                          fourth: result.ex4,
+                          fifth: result.ex5
+                      },
+                      problemImage: result.img,
+                      problemID: result.ID,
+                  }
+              });
+          }
+          console.log('problem', this.state.problem);
       })
-    }
+  }
 
     postProblemInfo = () => {
       fetch(url, {  // url 어떤 값 넣어줘야할지?????????? 
