@@ -13,7 +13,7 @@ export default class Answer extends React.Component {
     render(){
         return (
             <View style={styles.makerow}>
-                <TouchableOpacity onPress={pickAnswer}>
+                <TouchableOpacity onPress={this.props.pickAnswer}>
                     <MaterialIcons name={(this.props.checked)?"check-box":"check-box-outline-blank"} size={20}/>
                 </TouchableOpacity>
                 <Text>{this.props.content}</Text>

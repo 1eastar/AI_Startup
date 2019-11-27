@@ -27,7 +27,7 @@ export default class ResultScreen extends React.Component {
                 <Text>취약한 파트는 ~~~이고, 평균보다 뛰어난 파트는 ~~~ 입니다.</Text>
               </View>
               <View style={styles.button}>
-                <Custombotton title='go Home' titleColor='#000' buttonColor='#097234' onPress={() => {this.props.navigation.navigate('Main')}}/>
+                <Custombotton title='go Home' titleColor='#fff' buttonColor='#097234' onPress={() => {this.props.navigation.navigate('Main')}}/>
               </View>
             </View>
         );

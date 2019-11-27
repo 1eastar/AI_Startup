@@ -6,9 +6,9 @@ import {AntDesign} from "@expo/vector-icons";
 
 export default class MainScreen extends React.Component {
     static navigationOptions = {
-      tabBarIcon: ({tintColor}) => {
-        <AntDesign name="home" size={25} style={{ tintColor }} />
-      },
+      tabBarIcon: ({tintColor}) => (
+        <AntDesign name="home" size={25} style={{ color:tintColor }} />
+      ),
       tabBaronPress: ({navigation}) => {
           navigation.navigate('Main');
       }
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   selectImage: {
     flexDirection: 'row',
     backgroundColor:'#ece6cc',
-    //
+    //alignItems: 'center',
   },
   imageitems: {
     //resizeMode:'center',
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
     //marginBottom:100,
     //paddingBottom:100,
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 100,
   },
 });

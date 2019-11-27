@@ -5,9 +5,9 @@ import {FontAwesome} from "@expo/vector-icons";
 
 export default class MypageScreen extends React.Component {
     static navigationOptions = {
-        tabBarIcon: ({tintColor}) => {
-            <FontAwesome name="user-o" size={25} style={{ tintColor }} />
-        },
+        tabBarIcon: ({tintColor}) => (
+            <FontAwesome name="user-o" size={25} style={{ color:tintColor }} />
+        ),
         tabBaronPress: ({navigation}) => {
             navigation.navigate('Mypage');
         }
@@ -21,7 +21,7 @@ export default class MypageScreen extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-                
+                <Text>My page</Text>
             </View>
         );
     }

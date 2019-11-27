@@ -21,7 +21,7 @@ export default class AppExplainScreen extends React.Component {
                     <Text style={{fontWeight:'bold', fontSize:13}}>인공지능 ~~~~~~ 쏼라쏼라 ~~~~~~</Text>
                 </View>
                 <View style={styles.buttonitem}>
-                    <CustomBotton title='start A+i' buttonColor='#097234' titleColor='#fff' onPress={() => this.props.navigation.navigate('Main')}/>
+                    <CustomBotton title='start A+i' buttonColor='#097234' titleColor='#fff' onPress={() => this.props.navigation.navigate('Tab')}/>
                     {/*<Button 
                         title = 'Start A+i'
                     onPress = {() => this.props.navigation.navigate('Main')}/>*/}

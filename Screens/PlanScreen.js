@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity,FlatList } from 'react-native';
-import CustomBotton from '../Components/Custombutton';
+import { StyleSheet, Text, View,FlatList } from 'react-native';
 import {FontAwesome} from "@expo/vector-icons";
 import PlanHeader from '../Components/planHeader';
 import Input from '../Components/Inputbox';
@@ -9,9 +8,9 @@ import Plan from '../Components/Plan';
 export default class PlanScreen extends React.Component {
     static navigationOptions = {
         header:null,
-        tabBarIcon: ({tintColor}) => {
-            <FontAwesome name="sticky-note-o" size={25} style={{ tintColor }} />
-        },
+        tabBarIcon: ({tintColor}) => (
+            <FontAwesome name="sticky-note-o" size={25} style={{ color:tintColor }} />
+        ),
         tabBaronPress: ({navigation}) => {
             navigation.navigate('Plan');
         }
@@ -24,29 +23,32 @@ export default class PlanScreen extends React.Component {
             inputValue:"",
             plans:[
                 {
-                    title: '1', isChecked:false,    // test 용
+                    title: '밥 먹기', isChecked:false,
                 },
                 {
-                    title: '2', isChecked:false,
+                    title: '숨 쉬기', isChecked:false,
                 },
             ]
         };
     }
 
-    _makePlan(item, index) {
-        <Plan 
-            text={item.title}
-            isChecked={item.isChecked}
-            checked={()=>{
-                const newPlans = [...this.state.plans];
-                newPlans[index].isChecked = !newPlans[index].isChecked;
-                this.setState({plans:newPlans});
-            }}
-            deleted={()=>{
-                const newPlans = [...this.state.plans];
-                newPlans.splice(index,1);
-                this.setState({plans:newPlans});
-            }} />
+    _makePlan = ({item, index}) => {
+        return(
+            <Plan 
+                text={item.title}
+                isChecked={item.isChecked}
+                checked={()=>{
+                    const newPlans = [...this.state.plans];
+                    newPlans[index].isChecked = !newPlans[index].isChecked;
+                    this.setState({plans:newPlans});
+                }}
+                deleted={()=>{
+                    const newPlans = [...this.state.plans];
+                    newPlans.splice(index,1);
+                    this.setState({plans:newPlans});
+                }} 
+                />
+        );
     }
 
     _changeText= (value) =>{
@@ -71,7 +73,7 @@ export default class PlanScreen extends React.Component {
                 <PlanHeader />
 
                 <View style={styles.subtitleposition}>
-                    <Text title="해야 할 일"/>
+                    <Text>해야 할 일</Text>
                     <Input
                         message="할 일을 입력해주세요."
                         value={this.state.inputValue}
@@ -79,7 +81,8 @@ export default class PlanScreen extends React.Component {
                         addPlan={this._addPlan} />
                 </View>
                 <View style={styles.subtitleposition}>
-                    <Text title="해야 할 일 목록" />
+                    <Text>해야 할 일 목록</Text>
+                    {/* <Plan text="gggggggggggg" isChecked="false" /> */}
                     <FlatList 
                         data={this.state.plans}
                         renderItem={this._makePlan}
@@ -97,25 +100,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
-    text1:{
-        flex:1,
-        margin:40,
-        //borderWidth:1
-    },
-    text2:{
-        flex:1,
-        marginHorizontal:40,
-        //paddingBottom:100,
-    },
-    text3:{
-        flex:1,
-        margin:40,
-    },
     buttonitem:{
         flex:1,
         marginBottom:70,
         marginRight:50,
         alignSelf:'flex-end',
         //borderWidth:1
+    },
+    subtitleposition:{
+        //
     }
 });
