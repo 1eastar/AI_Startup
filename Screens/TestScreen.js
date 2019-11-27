@@ -25,12 +25,19 @@ export default class TestScreen extends React.Component {
             problemID:'',
           },
 
-          problemResult : { // 각 문제당 걸린시간(초), T/F
-
-          },
+          // 문제 id, 각 문제당 걸린시간(초), T/F
+          userID:"me",
+          schema:"team_seven",
+          problemResult : [ 
+            { 
+              id:0,
+              time:0,
+              correctness:false,
+            }, // 예시
+          ],
           
 
-          startTime: new Date(),
+          startTime:30*60-1,  // 그 문제가 시작한 시간
           timelimit:30*60-1, // 30분
           // mins:Math.floor(timelimit/60),
           // secs:timelimit - mins*60,
@@ -71,7 +78,10 @@ export default class TestScreen extends React.Component {
                   }
               });
           }
-          console.log('problem', this.state.problem);
+          //console.log('problem', this.state.problem);
+      })
+      .catch((err) => {
+        console.log(err);
       })
   }
 
@@ -84,6 +94,21 @@ export default class TestScreen extends React.Component {
         },
         body : JSON.stringify() // dic type data 전달
       })
+    }
+
+    storeTempData = () => {
+      const newProblemResult = [...this.state.problemResult];
+      const nowProblemData = {
+        id:this.state.problem.problemID, 
+        time:30*60-1 - this.state.timelimit,
+        correctness:false,
+      }
+
+      newProblemResult = newProblemResult.concat(nowProblemData);
+      this.setState({
+        problem:newProblemResult,
+        startTime:nowProblemData.time,
+      });
     }
 
     componentDidMount(){
@@ -114,7 +139,7 @@ export default class TestScreen extends React.Component {
     componentWillMount() {
       this.getProblemInfo();
     }
-    com
+    
     
     render(){
         return (
@@ -155,10 +180,12 @@ export default class TestScreen extends React.Component {
                   onPress = {() => {
                     if(this.state.problemNum == 15){
                       this.postProblemInfo();
+                      this.storeTempData();
                       this.props.navigation.navigate('Result');
                     }
                     else{
                       this.getProblemInfo();
+                      this.storeTempData();
                     }
                   }}
                 />

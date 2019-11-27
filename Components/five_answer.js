@@ -25,7 +25,7 @@ export default class Five_answer extends React.Component {
                 {content:this.props.answers.fourth, checked:false},
                 {content:this.props.answers.fifth, checked:false},
             ],
-            checked:[false, false, false, false, false],
+            picked:0,
         };
     }
 
