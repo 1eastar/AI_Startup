@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View,FlatList } from 'react-native';
+import { StyleSheet, Text, View,FlatList, Dimensions } from 'react-native';
 import {FontAwesome} from "@expo/vector-icons";
-import PlanHeader from '../Components/planHeader';
+import CustomHeader from '../Components/CustomHeader';
 import Input from '../Components/Inputbox';
 import Plan from '../Components/Plan';
+import {Header, Left, Right, Body} from 'native-base';
 
 export default class PlanScreen extends React.Component {
     static navigationOptions = {
@@ -70,28 +71,32 @@ export default class PlanScreen extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-                <PlanHeader />
+            <CustomHeader />
+                <View style={styles.contentContainer}>
 
-                <View style={styles.subtitleposition}>
-                    <Text>해야 할 일</Text>
-                    <Input
-                        message="할 일을 입력해주세요."
-                        value={this.state.inputValue}
-                        changeText={this._changeText}
-                        addPlan={this._addPlan} />
-                </View>
-                <View style={styles.subtitleposition}>
-                    <Text>해야 할 일 목록</Text>
-                    {/* <Plan text="gggggggggggg" isChecked="false" /> */}
-                    <FlatList 
-                        data={this.state.plans}
-                        renderItem={this._makePlan}
-                        keyExtractor={(item, index) => {return `${index}`}}/>
+                    <View style={styles.subtitleposition}>
+                        <Text style={{fontSize:21, fontWeight:'bold'}}>일정 추가</Text>
+                        <Input
+                            message="할 일을 입력해주세요."
+                            value={this.state.inputValue}
+                            changeText={this._changeText}
+                            addPlan={this._addPlan} />
+                    </View>
+                    <View style={styles.subtitleposition, {marginTop:30, alignItems:'center'}}>
+                        <Text style={{fontSize:21, fontWeight:'bold'}}>일정 목록</Text>
+                        {/* <Plan text="gggggggggggg" isChecked="false" /> */}
+                        <FlatList 
+                            data={this.state.plans}
+                            renderItem={this._makePlan}
+                            keyExtractor={(item, index) => {return `${index}`}}/>
+                    </View>
                 </View>
             </View>
         );
     }
 }
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
@@ -99,6 +104,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'flex-start',
+    },
+    contentContainer:{
+        width:width-60,
     },
     buttonitem:{
         flex:1,
@@ -109,5 +117,8 @@ const styles = StyleSheet.create({
     },
     subtitleposition:{
         //
+        width:width-80,
+        marginLeft:10,
+        marginTop:25,
     }
 });
