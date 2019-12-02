@@ -13,7 +13,7 @@ export default class Five_answer extends React.Component {
         // onPress:()=>null,
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             
@@ -38,7 +38,7 @@ export default class Five_answer extends React.Component {
                     //
                     const newAnswers = [...this.state.answers];
                     // index 이외에 나머지 checked = false로 바꿔야 함.
-                    for(let i=0;i<5;i++){
+                    for(let i=0; i<5; i++){
                         newAnswers[i].checked = false;
                     }
                     newAnswers[index].checked = !newAnswers[index].checked;
@@ -47,7 +47,7 @@ export default class Five_answer extends React.Component {
                 }}
             />
         )
-    }
+    };
 
     setContent = () => {
         // props로 받은 answer content를 setState로 바꾸기
@@ -56,7 +56,7 @@ export default class Five_answer extends React.Component {
         this.setState({answers:newAnswers})
     }
     
-    render(){
+    render() {
         //this.setContent();
         return (
             <View style={styles.answers}>
