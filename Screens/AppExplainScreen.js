@@ -26,7 +26,7 @@ class AppExplainScreen extends React.Component {
                     <Text style={{fontWeight:'bold', fontSize:13}}>A+i는 여러분의 생활패턴, 공부습관 등을 분석하여 최적의 학습계획과 시험 성적 예측 서비스를 제공해 드립니다.</Text>
                 </View>
                 <View style={styles.text3}>
-                    <Text style={{fontWeight:'bold', fontSize:13}}>인공지능 ~~~~~~ 쏼라쏼라 ~~~~~~</Text>
+                    <Text style={{fontWeight:'bold', fontSize:13}}>인공지능 ~~~~~~ 인공지능 ~~~~~~</Text>
                 </View>
                 <View style={styles.buttonitem}>
                     <CustomBotton title='start A+i' buttonColor='#097234' titleColor='#fff' onPress={this.props.navigation}/>

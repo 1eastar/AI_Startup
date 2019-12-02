@@ -13,17 +13,17 @@ export default class Five_answer extends React.Component {
         // onPress:()=>null,
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             
             //answers: props.answers,
             answers:[   // 임시 test용
-                {content:this.props.answers.first, checked:false},
-                {content:this.props.answers.second, checked:false},
-                {content:this.props.answers.third, checked:false},
-                {content:this.props.answers.fourth, checked:false},
-                {content:this.props.answers.fifth, checked:false},
+                {content:'', checked:false},
+                {content:'', checked:false},
+                {content:'', checked:false},
+                {content:'', checked:false},
+                {content:'', checked:false},
             ],
             picked:0,
         };
@@ -32,13 +32,13 @@ export default class Five_answer extends React.Component {
     _makeAnswer = ({item, index}) => {
         return (
             <Answer 
-                content={item.content}  // this.props.content로 해서 TestScreen.js에서 props로 리스트 넘겨주기
+                content={item.content} 
                 checked = {item.checked}
                 pickAnswer = {() => {
                     //
                     const newAnswers = [...this.state.answers];
                     // index 이외에 나머지 checked = false로 바꿔야 함.
-                    for(let i=0;i<5;i++){
+                    for(let i=0; i<5; i++){
                         newAnswers[i].checked = false;
                     }
                     newAnswers[index].checked = !newAnswers[index].checked;
@@ -47,17 +47,39 @@ export default class Five_answer extends React.Component {
                 }}
             />
         )
+    };
+    
+
+    componentWillMount() {
+        // props로 받은 answer content를 setState로 바꾸기
+        let newAnswers = [
+            {content:this.props.answers.first, checked:false},
+            {content:this.props.answers.second, checked:false},
+            {content:this.props.answers.third, checked:false},
+            {content:this.props.answers.fourth, checked:false},
+            {content:this.props.answers.fifth, checked:false},
+        ]
+        this.setState({answers:newAnswers});
     }
 
     setContent = () => {
         // props로 받은 answer content를 setState로 바꾸기
-        let newAnswers = this.state.answers;
-        newAnswers[0] = { content: 'newContent', checked: false };
-        this.setState({answers:newAnswers})
+        // console.log(this.props.answers)
+        let newAnswers = [
+            {content:this.props.answers.first, checked:this.state.answers[0].checked},
+            {content:this.props.answers.second, checked:this.state.answers[1].checked},
+            {content:this.props.answers.third, checked:this.state.answers[2].checked},
+            {content:this.props.answers.fourth, checked:this.state.answers[3].checked},
+            {content:this.props.answers.fifth, checked:this.state.answers[4].checked},
+        ]
+        this.setState({answers:newAnswers});
     }
     
-    render(){
-        //this.setContent();
+    render() {
+        setTimeout(()=>{
+            this.setContent();
+        },1000)
+        
         return (
             <View style={styles.answers}>
                 <FlatList 

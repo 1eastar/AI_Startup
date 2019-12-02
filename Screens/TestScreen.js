@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
+import {StyleSheet, Text, View, Button, Image, StatusBar, TouchableOpacity, Dimensions} from 'react-native';
 import {Header, Left, Right, Body} from 'native-base';
 import {AntDesign, Feather, MaterialCommunityIcons, Ionicons} from "@expo/vector-icons"
 //feather circle , sim check
@@ -7,14 +7,12 @@ import CustomBotton from '../Components/Custombutton';
 import Five_answer from '../Components/five_answer';
 import {CorrectConsumer} from '../contexts/Correct';
 
-//const fetch = require('node-fetch');
-
 export default class TestScreen extends React.Component {
     static navigationOptions = {
-      header : null,
+        header: null,
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
           problemNum:0, // 0번째 문제
@@ -22,7 +20,7 @@ export default class TestScreen extends React.Component {
           problem:{
             answers: {first:'', second:'', third:'', fourth:'', fifth:''}, //props.answers,
             answer:0,
-            problemImage:0,
+            problemImage:'',
             problemID:0,
           },
 
@@ -43,6 +41,12 @@ export default class TestScreen extends React.Component {
           // mins:Math.floor(timelimit/60),
           // secs:timelimit - mins*60,
         };
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(
+            () => this.tick(), 1000
+        );
     }
 
     /// html로 fetch되는 현상 어떻게??????????????????????????????
@@ -114,29 +118,26 @@ export default class TestScreen extends React.Component {
       });
     }
 
-    componentDidMount(){
-      //
-      this.timer = setInterval(
-        () => this.tick(), 1000
-      );
+    // componentWillUnmount() {
+    //     //
+    //     clearInterval(this.timer);
+    //     this.setState({
+    //         timelimit: 30 * 60 - 1, // 15분
+    //     }); // 이거 필요없나???
+    // }
+
+    tick() {
+        let newTimelimit = this.state.timelimit;
+        newTimelimit -= 1;
+        this.setState({timelimit: newTimelimit});
+
+        if (this.state.timelimit == 0) {
+            this.props.navigation.navigate('Result');
+        }
     }
 
-    componentWillUnmount() {
-      //
-      clearInterval(this.timer);
-      this.setState({
-        timelimit:30*60-1, // 15분
-      }); // 이거 필요없나???
-    }
+    _loadImage() {
 
-    tick(){
-      let newTimelimit = this.state.timelimit;
-      newTimelimit -= 1;
-      this.setState({timelimit:newTimelimit});
-      
-      if(this.state.timelimit == 0){
-        this.props.navigation.navigate('Result');
-      }
     }
 
     componentWillMount() {
@@ -150,7 +151,7 @@ export default class TestScreen extends React.Component {
     render(){
         return (
             <View style={styles.container}>
-              {/*<StatusBar 
+                {/*<StatusBar
                 animated={true}
                 backgroundColor='blue'
                 barStyle='default'
@@ -172,7 +173,7 @@ export default class TestScreen extends React.Component {
               <Image 
                 style={styles.problem}
                 source={{uri:this.state.problem.problemImage}}
-                //resizeMode={'contain'}
+                resizeMode={'contain'}
               />
 
               <View style={styles.answers}>
@@ -192,11 +193,7 @@ export default class TestScreen extends React.Component {
                     }
                     else{
                       this.storeTempData();
-                      this._getProblemInfo().then(r => {
-                        this.setState({...r})
-                        console.log(r)
-                      });
-                      console.log(this.state)
+                      this._getProblemInfo().then(r => this.setState({...r}));
                     }
                   }}
                 />
@@ -229,12 +226,14 @@ const styles = StyleSheet.create({
   },
   problem: {
     //
-    marginTop:100,
-    borderWidth:1,
+    width:'100%',
+    height:'50%',
   },
   answers: {
     //
     //borderWidth:1
+    alignSelf:'flex-start',
+    marginLeft:25,
   },
   makerow: {
     flexDirection:'row',
