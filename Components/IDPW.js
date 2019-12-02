@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal:-50,
     borderWidth:3,
+    fontWeight:'bold',
     // marginHorizontal:-130
   },
   text : {

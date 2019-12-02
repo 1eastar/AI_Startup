@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, ScrollView, Dimensions } from 'react-native';
 import Inputbox from '../Components/Inputbox';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
@@ -19,17 +19,45 @@ export default class SignupScreen extends React.Component {
                     />
                 <View style={styles.loginitems}>
                     {/* <Text style={{borderWidth:1, marginTop:-100}}>LoginScreen</Text> */}
-                    <Text style={{marginBottom:10, fontSize:25}}>Sign In</Text>
+                    <Text style={{marginBottom:10, marginLeft:80, fontSize:25}}>Sign Up</Text>
                     <View style={styles.makerow}>
-                        <IDPW message='ID     :'/>
-                        <Inputbox message='아이디를 입력해주세요.        '/>
+                        <IDPW message='ID'/>
+                        <View style={[styles.input,{marginLeft:96}]}>
+                            <Inputbox message=''/>
+                        </View>
                     </View>
                     <View style={styles.makerow}>
-                        <IDPW message='PW   :'/>
-                        <Inputbox message='비밀번호를 입력해주세요.    '/>
+                        <IDPW message='PASSWORD'/>
+                        <View style={[styles.input,{marginLeft:35}]}>
+                            <Inputbox message=''/>
+                        </View>
+                    </View>
+                    <View style={styles.makerow}>
+                        <IDPW message='CONFIRM PW'/>
+                        <View style={[styles.input,{marginLeft:23}]}>
+                            <Inputbox message=''/>
+                        </View>
+                    </View>
+                    <View style={styles.makerow}>
+                        <IDPW message='NAME'/>
+                        <View style={[styles.input,{marginLeft:69}]}>
+                            <Inputbox message=''/>
+                        </View>
+                    </View>
+                    <View style={styles.makerow}>
+                        <IDPW message='GRADE'/>
+                        <View style={[styles.input,{marginLeft:64}]}>
+                            <Inputbox message=''/>
+                        </View>
+                    </View>
+                    <View style={styles.makerow}>
+                        <IDPW message='RANK'/>
+                        <View style={[styles.input,{marginLeft:73}]}>
+                            <Inputbox message=''/>
+                        </View>
                     </View>
                     <View style={styles.button}>
-                        <CustomBotton title='Login' buttonColor='#097234' titleColor='#fff' onPress={() => this.props.navigation.navigate('AppExplain')}/>
+                        <CustomBotton title='NEXT' buttonColor='#11a84e' titleColor='#fff' onPress={() => this.props.navigation.navigate('Login')}/>
                     </View>
                     {/* <Button 
                         title = 'login'
@@ -40,6 +68,8 @@ export default class SignupScreen extends React.Component {
     }
 }
 
+const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex:1,
@@ -49,26 +79,34 @@ const styles = StyleSheet.create({
     // height:"50%"
   },
   loginitems:{
-    flex:1,
+    flex:3,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     borderWidth:1,
     borderRadius:10,
     padding:30,
     marginBottom:80,
     marginTop:80,
+    width: width-100,
   },
   makerow:{
     flexDirection:'row',
     alignItems:'flex-start',
+    marginVertical:4,
   },
   logoimage: {
     flex:1,
     resizeMode:'center',
+    marginTop:70,
   },
   button: {
       height:50,
       paddingTop:5,
+      marginTop:10,
+      marginLeft:80,
+  },
+  input:{
+      width:width-270,
   }
 });

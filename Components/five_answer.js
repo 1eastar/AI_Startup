@@ -43,7 +43,7 @@ export default class Five_answer extends React.Component {
                     }
                     newAnswers[index].checked = !newAnswers[index].checked;
                      
-                    this.setState({answers:newAnswers});
+                    this.setState({answers:newAnswers, picked:index});
                 }}
             />
         )

@@ -12,12 +12,34 @@ import TestExplainScreen from './Screens/TestExplainScreen';
 import PlanScreen from './Screens/PlanScreen';
 import MypageScreen from './Screens/MypageScreen';
 import SignupScreen from './Screens/SignupScreen';
+import {AntDesign,Ionicons,FontAwesome} from "@expo/vector-icons";
 
 const bottomTapNavi = createBottomTabNavigator(
   {
-    Plan: {screen : PlanScreen},
-    Main: {screen : MainScreen},
-    Mypage: {screen : MypageScreen},
+    Plan: {
+      screen : PlanScreen,
+      navigationOptions : {
+        tabBarIcon: ({tintColor}) => (
+          <FontAwesome name="sticky-note-o" size={25} style={{ color:tintColor }} />
+        ),
+      }
+    },
+    Main: {
+      screen : MainScreen,
+      navigationOptions : {
+        tabBarIcon: ({tintColor}) => (
+          <AntDesign name="home" size={25} style={{ color:tintColor }} />
+        ),
+      }
+    },
+    Mypage: {
+      screen : MypageScreen,
+      navigationOptions : {
+        tabBarIcon: ({tintColor}) => (
+          <FontAwesome name="user-o" size={25} style={{ color:tintColor }} />
+        ),
+      }
+    },
   },
   {
     tabBarOptions : {

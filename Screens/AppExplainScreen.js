@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native';
 import CustomBotton from '../Components/Custombutton';
-import {Header, Left, Right, Body} from 'native-base';
-import {Ionicons,FontAwesome} from '@expo/vector-icons';
 import CustomHeader from '../Components/CustomHeader';
+import {HeaderoverlayConsumer} from '../contexts/Headerovelay';
 
-export default class AppExplainScreen extends React.Component {
+class AppExplainScreen extends React.Component {
     static navigationOptions = {
         header:null
     }
@@ -17,8 +16,8 @@ export default class AppExplainScreen extends React.Component {
     
     render(){
         return (
-            <View style={styles.container}>
-                <CustomHeader />
+            <View style={(this.props.modalVisible)?styles.container:styles.Opacitycontainer}>
+                <CustomHeader modalVisible={this.props.modalVisible} setModalVisible={(visible)=>this.props.setModalVisible(visible)}/>
 
                 <View style={styles.text1}>
                     <Text style={{fontWeight:'bold', fontSize:18}}>A+i에 오신 것을 환영합니다.</Text>
@@ -30,7 +29,7 @@ export default class AppExplainScreen extends React.Component {
                     <Text style={{fontWeight:'bold', fontSize:13}}>인공지능 ~~~~~~ 쏼라쏼라 ~~~~~~</Text>
                 </View>
                 <View style={styles.buttonitem}>
-                    <CustomBotton title='start A+i' buttonColor='#097234' titleColor='#fff' onPress={() => this.props.navigation.navigate('Tab')}/>
+                    <CustomBotton title='start A+i' buttonColor='#097234' titleColor='#fff' onPress={this.props.navigation}/>
                     {/*<Button 
                         title = 'Start A+i'
                     onPress = {() => this.props.navigation.navigate('Main')}/>*/}
@@ -40,12 +39,32 @@ export default class AppExplainScreen extends React.Component {
     }
 }
 
+const HeaderoverlayContainer = ({navigation}) => (
+    <HeaderoverlayConsumer>
+        {
+            ({state, action}) => (
+                <AppExplainScreen
+                    modalVisible={state.modalVisible}
+                    setModalVisible={action.setModalVisible}
+                    navigation={() => navigation.navigate('Tab')}
+                    />
+            )
+        }
+    </HeaderoverlayConsumer>
+)
+
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    Opacitycontainer: {
+        flex: 1,
+        backgroundColor: 'rgb(255,255,255)',
         alignItems: 'center',
         justifyContent: 'space-around',
     },
@@ -76,3 +95,6 @@ const styles = StyleSheet.create({
         //height:10,
     }
 });
+
+
+export default HeaderoverlayContainer;

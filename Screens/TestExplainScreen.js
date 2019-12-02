@@ -4,20 +4,66 @@ import CustomBotton from '../Components/Custombutton';
 import {Header, Left, Right, Body} from 'native-base';
 import {Ionicons,FontAwesome} from '@expo/vector-icons';
 import CustomHeader from "../Components/CustomHeader";
+import {HeaderoverlayConsumer} from '../contexts/Headerovelay';
 
-export default class TestExplainScreen extends React.Component {
+class TestExplainScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {};
     }
-    
+
+    _getProblemInfo = async () => {
+        let bodyValue = {schema: 'team_seven'};
+        return await new Promise((resolve, reject) => {
+          fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem', {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Accept": "application/json"
+              },
+              body: JSON.stringify(bodyValue)
+          })
+          .then(response => response.json())
+          .then(response => {
+              let result = response.results[0];
+              if (result.length === 0) {
+                  console.log('empty result came back from API call');
+              } else {
+                const problemInfo = {
+                  problemNum: 1,
+                  problem: {
+                    answer: result.answer,
+                    answers: {
+                        first: result.ex1,
+                        second: result.ex2,
+                        third: result.ex3,
+                        fourth: result.ex4,
+                        fifth: result.ex5
+                    },
+                    problemImage: result.img,
+                    problemID: result.ID,
+                  }
+                }
+                resolve(problemInfo);
+              }
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      })
+    }
+
+    _next() {
+        this._getProblemInfo().then(result => this.props.navigation.navigate('Test', {data:result}))
+    }
+
     render(){
         return (
-            <View style={styles.container}>
-                <CustomHeader />
+            <View style={(this.props.modalVisible)?styles.container:styles.Opacitycontainer}>
+                <CustomHeader modalVisible={this.props.modalVisible} setModalVisible={(visible)=>this.props.setModalVisible(visible)}/>
 
               <View style={styles.buttonitem}>
-                  <CustomBotton title='start Test' buttonColor='#030' titleColor='#fff' onPress={() => this.props.navigation.navigate('Test')}/>
+                  <CustomBotton title='start Test' buttonColor='#030' titleColor='#fff' onPress={()=>this._next()}/>
                   {/*<Button 
                       title = 'Start A+i'
                   onPress = {() => this.props.navigation.navigate('Main')}/>*/}
@@ -36,15 +82,37 @@ export default class TestExplainScreen extends React.Component {
     }
 }
 
+const HeaderoverlayContainer = ({navigation}) => (
+    <HeaderoverlayConsumer>
+        {
+            ({state, action}) => (
+                <TestExplainScreen
+                    modalVisible={state.modalVisible}
+                    setModalVisible={action.setModalVisible}
+                    navigation={navigation}
+                    />
+            )
+        }
+    </HeaderoverlayConsumer>
+  )
+
+
+
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
+    Opacitycontainer: {
+        flex: 1,
+        backgroundColor: 'rgb(255,255,255)',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+      },  
     text1:{
         flex:2,
         // margin:40,
@@ -77,3 +145,5 @@ const styles = StyleSheet.create({
         marginTop:23,
     },
 });
+
+export default HeaderoverlayContainer;

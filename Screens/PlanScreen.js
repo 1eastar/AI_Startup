@@ -5,8 +5,9 @@ import CustomHeader from '../Components/CustomHeader';
 import Input from '../Components/Inputbox';
 import Plan from '../Components/Plan';
 import {Header, Left, Right, Body} from 'native-base';
+import {HeaderoverlayConsumer} from '../contexts/Headerovelay';
 
-export default class PlanScreen extends React.Component {
+class PlanScreen extends React.Component {
     static navigationOptions = {
         header:null,
         tabBarIcon: ({tintColor}) => (
@@ -70,8 +71,8 @@ export default class PlanScreen extends React.Component {
     
     render(){
         return (
-            <View style={styles.container}>
-            <CustomHeader />
+            <View style={(this.props.modalVisible)?styles.container:styles.Opacitycontainer}>
+                <CustomHeader modalVisible={this.props.modalVisible} setModalVisible={(visible)=>this.props.setModalVisible(visible)}/>
                 <View style={styles.contentContainer}>
 
                     <View style={styles.subtitleposition}>
@@ -96,15 +97,36 @@ export default class PlanScreen extends React.Component {
     }
 }
 
+const HeaderoverlayContainer = () => (
+    <HeaderoverlayConsumer>
+        {
+            ({state, action}) => (
+                <PlanScreen
+                    modalVisible={state.modalVisible}
+                    setModalVisible={action.setModalVisible}
+                    />
+            )
+        }
+    </HeaderoverlayConsumer>
+  )
+
+
+
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
+    Opacitycontainer: {
+        flex: 1,
+        backgroundColor: 'rgb(255,255,255)',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+      },  
     contentContainer:{
         width:width-60,
     },
@@ -122,3 +144,6 @@ const styles = StyleSheet.create({
         marginTop:25,
     }
 });
+
+
+export default HeaderoverlayContainer;

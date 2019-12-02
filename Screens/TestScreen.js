@@ -5,8 +5,9 @@ import {AntDesign, Feather, MaterialCommunityIcons, Ionicons} from "@expo/vector
 //feather circle , sim check
 import CustomBotton from '../Components/Custombutton';
 import Five_answer from '../Components/five_answer';
+import {CorrectConsumer} from '../contexts/Correct';
 
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 
 export default class TestScreen extends React.Component {
     static navigationOptions = {
@@ -21,8 +22,8 @@ export default class TestScreen extends React.Component {
           problem:{
             answers: {first:'', second:'', third:'', fourth:'', fifth:''}, //props.answers,
             answer:0,
-            problemImage:'',
-            problemID:'',
+            problemImage:0,
+            problemID:0,
           },
 
           // 문제 id, 각 문제당 걸린시간(초), T/F
@@ -45,48 +46,50 @@ export default class TestScreen extends React.Component {
     }
 
     /// html로 fetch되는 현상 어떻게??????????????????????????????
-    getProblemInfo = () => {
+    _getProblemInfo = async () => {
       const newProblemNum = this.state.problemNum + 1;
       let bodyValue = {schema: 'team_seven'};
       this.setState({problemNum: newProblemNum});
-      fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem', {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-          },
-          body: JSON.stringify(bodyValue)
-      })
-      .then(response => response.json())
-      .then(response => {
-          let result = response.results[0];
-          if (result.length === 0) {
-              console.log('empty result came back from API call')
-          } else {
-              this.setState({
-                  problem: {
-                      answer: result.answer,
-                      answers: {
-                          first: result.ex1,
-                          second: result.ex2,
-                          third: result.ex3,
-                          fourth: result.ex4,
-                          fifth: result.ex5
-                      },
-                      problemImage: result.img,
-                      problemID: result.ID,
-                  }
-              });
-          }
-          //console.log('problem', this.state.problem);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      return await new Promise((resolve, reject) => {
+        fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(bodyValue)
+        })
+        .then(response => response.json())
+        .then(response => {
+            let result = response.results[0];
+            if (result.length === 0) {
+                console.log('empty result came back from API call');
+            } else {
+              const problemInfo = {
+                problem: {
+                  answer: result.answer,
+                  answers: {
+                      first: result.ex1,
+                      second: result.ex2,
+                      third: result.ex3,
+                      fourth: result.ex4,
+                      fifth: result.ex5
+                  },
+                  problemImage: result.img,
+                  problemID: result.ID,
+                }
+              }
+              resolve(problemInfo);
+            }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    })
   }
 
     postProblemInfo = () => {
-      fetch(url, {  // url 어떤 값 넣어줘야할지?????????? 
+      fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/second/gettest', {
         method : "POST",
         headers : {
           "Content-type" : "application/json",
@@ -97,7 +100,7 @@ export default class TestScreen extends React.Component {
     }
 
     storeTempData = () => {
-      const newProblemResult = [...this.state.problemResult];
+      let newProblemResult = [...this.state.problemResult];
       const nowProblemData = {
         id:this.state.problem.problemID, 
         time:30*60-1 - this.state.timelimit,
@@ -137,7 +140,10 @@ export default class TestScreen extends React.Component {
     }
 
     componentWillMount() {
-      this.getProblemInfo();
+      this.setState({...this.props.navigation.getParam('data')});
+      setTimeout(()=>{
+        console.log(this.state)
+      },3000)
     }
     
     
@@ -165,7 +171,8 @@ export default class TestScreen extends React.Component {
 
               <Image 
                 style={styles.problem}
-                source={{url:this.state.problem.problemImage}}
+                source={{uri:this.state.problem.problemImage}}
+                //resizeMode={'contain'}
               />
 
               <View style={styles.answers}>
@@ -179,13 +186,17 @@ export default class TestScreen extends React.Component {
                   titleColor = '#fff'
                   onPress = {() => {
                     if(this.state.problemNum == 15){
-                      this.postProblemInfo();
                       this.storeTempData();
+                      this.postProblemInfo();
                       this.props.navigation.navigate('Result');
                     }
                     else{
-                      this.getProblemInfo();
                       this.storeTempData();
+                      this._getProblemInfo().then(r => {
+                        this.setState({...r})
+                        console.log(r)
+                      });
+                      console.log(this.state)
                     }
                   }}
                 />
@@ -218,6 +229,8 @@ const styles = StyleSheet.create({
   },
   problem: {
     //
+    marginTop:100,
+    borderWidth:1,
   },
   answers: {
     //

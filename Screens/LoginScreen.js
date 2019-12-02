@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, ScrollView, Dimensions } from 'react-native';
 import Inputbox from '../Components/Inputbox';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
@@ -19,7 +19,7 @@ export default class LoginScreen extends React.Component {
                     />
                 <View style={styles.loginitems}>
                     {/* <Text style={{borderWidth:1, marginTop:-100}}>LoginScreen</Text> */}
-                    <Text style={{marginBottom:10, fontSize:25}}>Sign In</Text>
+                    <Text style={{marginBottom:20, fontSize:25}}>Sign In</Text>
                     <View style={styles.makerow}>
                         <IDPW message='ID     :'/>
                         <Inputbox message='아이디를 입력해주세요.        '/>
@@ -28,8 +28,13 @@ export default class LoginScreen extends React.Component {
                         <IDPW message='PW   :'/>
                         <Inputbox message='비밀번호를 입력해주세요.    '/>
                     </View>
-                    <View style={styles.button}>
-                        <CustomBotton title='Login' buttonColor='#11a84e' titleColor='#fff' onPress={() => this.props.navigation.navigate('AppExplain')}/>
+                    <View style={styles.makerow}>
+                        <View style={styles.button}>
+                            <CustomBotton title='Login' buttonColor='#11a84e' titleColor='#fff' onPress={() => this.props.navigation.navigate('AppExplain')}/>
+                        </View>
+                        <View style={styles.button}>
+                            <CustomBotton title='Sign Up' buttonColor='#11a84e' titleColor='#fff' onPress={() => this.props.navigation.navigate('Signup')}/>
+                        </View>
                     </View>
                     {/* <Button 
                         title = 'login'
@@ -39,6 +44,8 @@ export default class LoginScreen extends React.Component {
         );
     }
 }
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
@@ -69,8 +76,12 @@ const styles = StyleSheet.create({
     marginTop:60,
   },
   button: {
-      height:50,
-      paddingTop:5,
-      marginTop:10,
+      flexDirection:'row',
+      height:35,
+      marginTop:30,
+      width : (width-220)/2,
+      //borderWidth:1,
+      paddingHorizontal:5,
+      justifyContent:'space-between',
   }
 });

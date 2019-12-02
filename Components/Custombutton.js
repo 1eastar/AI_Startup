@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native';
 
 export default class CustomBotton extends React.Component {
     static defaultprops = {
@@ -24,6 +24,8 @@ export default class CustomBotton extends React.Component {
     }
 }
 
+const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     button: {
       flex: 1,
@@ -31,8 +33,9 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginBottom: 10,
       borderRadius: 5,
-      paddingHorizontal:10,
-      height:10,
+      //paddingHorizontal:50,
+      height:35,
+      width:(width-250)/2,
     },
     title: {
       fontSize: 15,
