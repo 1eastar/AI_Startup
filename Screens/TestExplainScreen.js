@@ -5,6 +5,7 @@ import {Header, Left, Right, Body} from 'native-base';
 import {Ionicons,FontAwesome} from '@expo/vector-icons';
 import CustomHeader from "../Components/CustomHeader";
 import {HeaderoverlayConsumer} from '../contexts/Headerovelay';
+import {CorrectConsumer} from '../contexts/Correct';
 
 class TestExplainScreen extends React.Component {
     constructor(props){
@@ -12,49 +13,15 @@ class TestExplainScreen extends React.Component {
         this.state = {};
     }
 
-    _getProblemInfo = async () => {
-        let bodyValue = {schema: 'team_seven'};
-        return await new Promise((resolve, reject) => {
-          fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem', {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-                  "Accept": "application/json"
-              },
-              body: JSON.stringify(bodyValue)
-          })
-          .then(response => response.json())
-          .then(response => {
-              let result = response.results[0];
-              if (result.length === 0) {
-                  console.log('empty result came back from API call');
-              } else {
-                const problemInfo = {
-                  problemNum: 1,
-                  problem: {
-                    answer: result.answer,
-                    answers: {
-                        first: result.ex1,
-                        second: result.ex2,
-                        third: result.ex3,
-                        fourth: result.ex4,
-                        fifth: result.ex5
-                    },
-                    problemImage: result.img,
-                    problemID: result.ID,
-                  }
-                }
-                resolve(problemInfo);
-              }
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      })
-    }
 
     _next() {
-        this._getProblemInfo().then(result => this.props.navigation.navigate('Test', {data:result}))
+        for(let i=0;i<15;i++){
+            this.props.getprob().then((result) => {
+                this.props.storeProblem(result);
+            })
+        }
+        this.props.navigation.navigate('Test');
+        //this._getProblemInfo().then(result => this.props.navigation.navigate('Test', {data:result}))
     }
 
     render(){
@@ -86,11 +53,21 @@ const HeaderoverlayContainer = ({navigation}) => (
     <HeaderoverlayConsumer>
         {
             ({state, action}) => (
-                <TestExplainScreen
-                    modalVisible={state.modalVisible}
-                    setModalVisible={action.setModalVisible}
-                    navigation={navigation}
-                    />
+                <CorrectConsumer>
+                    {
+                        ({state2, action2}) => (
+                            <TestExplainScreen
+                                modalVisible={state.modalVisible}
+                                setModalVisible={action.setModalVisible}
+                                navigation={navigation}
+                                getprob={action2._getProblemInfo}
+                                storeprob={actions2.storeProblem}
+                                storeresult={}
+                                />
+                        )
+                    }
+                </CorrectConsumer>
+                
             )
         }
     </HeaderoverlayConsumer>

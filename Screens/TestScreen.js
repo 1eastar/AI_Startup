@@ -7,7 +7,7 @@ import CustomBotton from '../Components/Custombutton';
 import Five_answer from '../Components/five_answer';
 import {CorrectConsumer} from '../contexts/Correct';
 
-export default class TestScreen extends React.Component {
+class TestScreen extends React.Component {
     static navigationOptions = {
         header: null,
     };
@@ -17,12 +17,14 @@ export default class TestScreen extends React.Component {
         this.state = {
           problemNum:0, // 0번째 문제
 
-          problem:{
-            answers: {first:'', second:'', third:'', fourth:'', fifth:''}, //props.answers,
-            answer:0,
-            problemImage:'',
-            problemID:0,
-          },
+          problem:[
+            {
+              answers: {first:'', second:'', third:'', fourth:'', fifth:''}, //props.answers,
+              answer:0,
+              problemImage:'',
+              problemID:0,
+            },
+          ],
 
           // 문제 id, 각 문제당 걸린시간(초), T/F
           userID:"me",
@@ -206,6 +208,18 @@ export default class TestScreen extends React.Component {
     }
 }
 
+const CorrectContainer = ({navigation}) => (
+  <CorrectConsumer>
+    {
+      ({state, action}) => (
+        <TestScreen 
+          
+          />
+      )
+    }
+  </CorrectConsumer>
+)
+
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
@@ -247,3 +261,5 @@ const styles = StyleSheet.create({
     marginRight:20,
   },
 });
+
+export default CorrectContainer;
