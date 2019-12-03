@@ -33,13 +33,13 @@ class MainScreen extends React.Component {
                   contentContainerStyle={(this.props.modalVisible)?styles.selectImageModal:styles.selectImage}
                   horizontal={true}>
                   <TouchableOpacity onPress={this.props.navigation}>
-                    <Image style={styles.imageitems} source={require('../assets/english.png')}/>
+                    <Image style={styles.imageitems} source={require('../assets/kor.png')}/>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={this.props.navigation}>
-                    <Image style={styles.imageitems} source={require('../assets/english.png')}/>
+                    <Image style={styles.imageitems} source={require('../assets/math.jpg')}/>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={this.props.navigation}>
-                    <Image style={styles.imageitems} source={require('../assets/english.png')}/>
+                    <Image style={styles.imageitems} source={require('../assets/eng.png')}/>
                   </TouchableOpacity>
                 </ScrollView>
                 {/*<Button 
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   imageitems: {
     //resizeMode:'center',
     transform:[
-      {scale:0.6},
+      {scale:0.8},
       {translate:[-5,-65]}
     ],
     //marginBottom:100,

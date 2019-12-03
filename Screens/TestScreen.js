@@ -6,6 +6,7 @@ import {AntDesign, Feather, MaterialCommunityIcons, Ionicons} from "@expo/vector
 import CustomBotton from '../Components/Custombutton';
 import Five_answer from '../Components/five_answer';
 import {CorrectConsumer} from '../contexts/Correct';
+import { AnswerConsumer } from '../contexts/answer';
 
 class TestScreen extends React.Component {
     static navigationOptions = {
@@ -15,27 +16,9 @@ class TestScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          problemNum:0, // 0번째 문제
+          problemNum:1, // 0번째 문제
 
-          problem:[
-            {
-              answers: {first:'', second:'', third:'', fourth:'', fifth:''}, //props.answers,
-              answer:0,
-              problemImage:'',
-              problemID:0,
-            },
-          ],
-
-          // 문제 id, 각 문제당 걸린시간(초), T/F
-          userID:"me",
-          schema:"team_seven",
-          problemResult : [ 
-            { 
-              id:0,
-              time:0,
-              correctness:false,
-            }, // 예시
-          ],
+          
           
 
           startTime:30*60-1,  // 그 문제가 시작한 시간
@@ -51,74 +34,22 @@ class TestScreen extends React.Component {
         );
     }
 
-    /// html로 fetch되는 현상 어떻게??????????????????????????????
-    _getProblemInfo = async () => {
-      const newProblemNum = this.state.problemNum + 1;
-      let bodyValue = {schema: 'team_seven'};
-      this.setState({problemNum: newProblemNum});
-      return await new Promise((resolve, reject) => {
-        fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/Prod/getproblem', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(bodyValue)
-        })
-        .then(response => response.json())
-        .then(response => {
-            let result = response.results[0];
-            if (result.length === 0) {
-                console.log('empty result came back from API call');
-            } else {
-              const problemInfo = {
-                problem: {
-                  answer: result.answer,
-                  answers: {
-                      first: result.ex1,
-                      second: result.ex2,
-                      third: result.ex3,
-                      fourth: result.ex4,
-                      fifth: result.ex5
-                  },
-                  problemImage: result.img,
-                  problemID: result.ID,
-                }
-              }
-              resolve(problemInfo);
-            }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    })
-  }
 
-    postProblemInfo = () => {
-      fetch('https://m27jbkwsc0.execute-api.ap-northeast-2.amazonaws.com/second/gettest', {
-        method : "POST",
-        headers : {
-          "Content-type" : "application/json",
-          "Accept" : "application/json",
-        },
-        body : JSON.stringify() // dic type data 전달
-      })
-    }
 
-    storeTempData = () => {
-      let newProblemResult = [...this.state.problemResult];
-      const nowProblemData = {
-        id:this.state.problem.problemID, 
-        time:30*60-1 - this.state.timelimit,
-        correctness:false,
-      }
+    // storeTempData = () => {
+    //   let newProblemResult = [...this.state.problemResult];
+    //   const nowProblemData = {
+    //     id:this.state.problem.problemID, 
+    //     time:30*60-1 - this.state.timelimit,
+    //     correctness:false,
+    //   }
 
-      newProblemResult = newProblemResult.concat(nowProblemData);
-      this.setState({
-        problem:newProblemResult,
-        startTime:nowProblemData.time,
-      });
-    }
+    //   newProblemResult = newProblemResult.concat(nowProblemData);
+    //   this.setState({
+    //     problem:newProblemResult,
+    //     startTime:nowProblemData.time,
+    //   });
+    // }
 
     // componentWillUnmount() {
     //     //
@@ -138,16 +69,21 @@ class TestScreen extends React.Component {
         }
     }
 
-    _loadImage() {
-
+    addProblemNum() {
+      let nextNum = this.state.problemNum + 1;
+      this.setState({problemNum:nextNum});
     }
 
-    componentWillMount() {
-      this.setState({...this.props.navigation.getParam('data')});
-      setTimeout(()=>{
-        console.log(this.state)
-      },3000)
-    }
+    // componentWillMount() {
+    //   this.setState({...this.props.navigation.getParam('data')});
+    //   setTimeout(()=>{
+    //     console.log(this.state)
+    //   },3000)
+    // }
+
+    // componentWillUnmount() {
+    //   this.props.resetState();  // resultscreen 에서 홈 눌렀을 때 쓸 것 =======================================
+    // }
     
     
     render(){
@@ -174,12 +110,19 @@ class TestScreen extends React.Component {
 
               <Image 
                 style={styles.problem}
-                source={{uri:this.state.problem.problemImage}}
+                source={{uri:this.props.allprob[this.props.probindexnow].problemImage}}
                 resizeMode={'contain'}
               />
 
               <View style={styles.answers}>
-                <Five_answer answers={this.state.problem.answers}/>
+                <Five_answer 
+                  answers={this.props.allprob[this.props.probindexnow].answers}
+                  pick1={this.props.pick1}
+                  pick2={this.props.pick2}
+                  pick3={this.props.pick3}
+                  pick4={this.props.pick4}
+                  pick5={this.props.pick5}
+                />
               </View>
 
               <View style={styles.button}>
@@ -188,14 +131,29 @@ class TestScreen extends React.Component {
                   buttonColor = '#45c97a'
                   titleColor = '#fff'
                   onPress = {() => {
+                    this.props.checkPicked();
                     if(this.state.problemNum == 15){
-                      this.storeTempData();
-                      this.postProblemInfo();
-                      this.props.navigation.navigate('Result');
+                      let time = this.state.startTime - this.state.timelimit;
+                      this.setState({startTime:this.state.timelimit});
+                      let id = this.props.allprob[this.props.probindexnow].problemID;
+                      let ans = this.props.allprob[this.props.probindexnow].answer;
+                      let tf = ans === this.props.picked[this.props.probindexnow];
+                      this.props.storeResult(id,time,tf);
+                      setTimeout(() => {
+                        //console.log(this.props.problemResult)
+                        this.props.navigation.navigate('Result', {data:this.props.problemResult});
+                      },2000);
                     }
                     else{
-                      this.storeTempData();
-                      this._getProblemInfo().then(r => this.setState({...r}));
+                      let time = this.state.startTime - this.state.timelimit;
+                      this.setState({startTime:this.state.timelimit});
+                      let id = this.props.allprob[this.props.probindexnow].problemID;
+                      let ans = this.props.allprob[this.props.probindexnow].answer;
+                      let tf = ans === this.props.picked[this.props.probindexnow];
+                      this.props.storeResult(id,time,tf);
+                      this.addProblemNum();
+                      this.props.addNum();
+                      //this._getProblemInfo().then(r => this.setState({...r}));
                     }
                   }}
                 />
@@ -211,9 +169,22 @@ class TestScreen extends React.Component {
 const CorrectContainer = ({navigation}) => (
   <CorrectConsumer>
     {
-      ({state, action}) => (
+      ({state, action2}) => (
         <TestScreen 
-          
+          navigation={navigation}
+          addNum={action2.addProblemNum}
+          allprob={state.problem}
+          probindexnow={state.problemNum}
+          answers={state.answers}
+          pick1={action2.pick1}
+          pick2={action2.pick2}
+          pick3={action2.pick3}
+          pick4={action2.pick4}
+          pick5={action2.pick5}
+          checkPicked={action2.checkPicked}
+          storeResult={action2.storeResult}
+          picked = {state.picked}
+          problemResult = {state.problemResult}
           />
       )
     }
@@ -248,6 +219,8 @@ const styles = StyleSheet.create({
     //borderWidth:1
     alignSelf:'flex-start',
     marginLeft:25,
+    width:width-55,
+    height:'20%'
   },
   makerow: {
     flexDirection:'row',

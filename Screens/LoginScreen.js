@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, ScrollView, Dimensions,SafeAreaView } from 'react-native';
 import Inputbox from '../Components/Inputbox';
 import IDPW from '../Components/IDPW';
 import CustomBotton from '../Components/Custombutton';
@@ -12,7 +12,7 @@ export default class LoginScreen extends React.Component {
     
     render(){
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <Image
                     style={styles.logoimage}
                     source={require('../assets/logo.png')}
@@ -40,7 +40,7 @@ export default class LoginScreen extends React.Component {
                         title = 'login'
                         onPress = {() => this.props.navigation.navigate('AppExplain')}/> */}
                 </View>
-            </View>
+            </SafeAreaView>
         );
     }
 }

@@ -22,9 +22,12 @@ export default class Answer extends React.Component {
     }
 }
 
+const {width, heigth} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   answers: {
     //
+    width:width-70,
   },
   makerow: {
     flexDirection:'row',

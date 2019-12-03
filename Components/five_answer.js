@@ -25,7 +25,7 @@ export default class Five_answer extends React.Component {
                 {content:'', checked:false},
                 {content:'', checked:false},
             ],
-            picked:0,
+            // picked:0,
         };
     }
 
@@ -53,12 +53,13 @@ export default class Five_answer extends React.Component {
     componentWillMount() {
         // props로 받은 answer content를 setState로 바꾸기
         let newAnswers = [
-            {content:this.props.answers.first, checked:false},
-            {content:this.props.answers.second, checked:false},
-            {content:this.props.answers.third, checked:false},
-            {content:this.props.answers.fourth, checked:false},
-            {content:this.props.answers.fifth, checked:false},
+            {content:this.props.answers[0].content, checked:false},
+            {content:this.props.answers[1].content, checked:false},
+            {content:this.props.answers[2].content, checked:false},
+            {content:this.props.answers[3].content, checked:false},
+            {content:this.props.answers[4].content, checked:false},
         ]
+        // console.log(this.props.answers)
         this.setState({answers:newAnswers});
     }
 
@@ -66,11 +67,11 @@ export default class Five_answer extends React.Component {
         // props로 받은 answer content를 setState로 바꾸기
         // console.log(this.props.answers)
         let newAnswers = [
-            {content:this.props.answers.first, checked:this.state.answers[0].checked},
-            {content:this.props.answers.second, checked:this.state.answers[1].checked},
-            {content:this.props.answers.third, checked:this.state.answers[2].checked},
-            {content:this.props.answers.fourth, checked:this.state.answers[3].checked},
-            {content:this.props.answers.fifth, checked:this.state.answers[4].checked},
+            {content:this.props.answers[0].content, checked:this.state.answers[0].checked},
+            {content:this.props.answers[1].content, checked:this.state.answers[1].checked},
+            {content:this.props.answers[2].content, checked:this.state.answers[2].checked},
+            {content:this.props.answers[3].content, checked:this.state.answers[3].checked},
+            {content:this.props.answers[4].content, checked:this.state.answers[4].checked},
         ]
         this.setState({answers:newAnswers});
     }
@@ -82,11 +83,31 @@ export default class Five_answer extends React.Component {
         
         return (
             <View style={styles.answers}>
-                <FlatList 
+                {/* <FlatList 
                     data={this.state.answers}
                     renderItem={this._makeAnswer}
                     keyExtractor={(item, index) => {return `${index}`}} 
-                />
+                /> */}
+                <Answer 
+                    content={this.props.answers[0].content} 
+                    checked={this.props.answers[0].checked}
+                    pickAnswer={() => this.props.pick1}/>
+                <Answer 
+                    content={this.props.answers[1].content} 
+                    checked={this.props.answers[1].checked}
+                    pickAnswer={() => this.props.pick2}/>
+                <Answer 
+                    content={this.props.answers[2].content} 
+                    checked={this.props.answers[2].checked}
+                    pickAnswer={() => this.props.pick3}/>
+                <Answer 
+                    content={this.props.answers[3].content} 
+                    checked={this.props.answers[3].checked}
+                    pickAnswer={() => this.props.pick4}/>
+                <Answer 
+                    content={this.props.answers[4].content} 
+                    checked={this.props.answers[4].checked}
+                    pickAnswer={() => this.props.pick5}/>
             </View>
         );
     }

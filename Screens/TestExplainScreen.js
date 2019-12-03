@@ -17,10 +17,12 @@ class TestExplainScreen extends React.Component {
     _next() {
         for(let i=0;i<15;i++){
             this.props.getprob().then((result) => {
-                this.props.storeProblem(result);
+                this.props.storeprob(result);
             })
         }
-        this.props.navigation.navigate('Test');
+        setTimeout(()=>{
+            this.props.navigation.navigate('Test');
+        },3000)
         //this._getProblemInfo().then(result => this.props.navigation.navigate('Test', {data:result}))
     }
 
@@ -61,8 +63,8 @@ const HeaderoverlayContainer = ({navigation}) => (
                                 setModalVisible={action.setModalVisible}
                                 navigation={navigation}
                                 getprob={action2._getProblemInfo}
-                                storeprob={actions2.storeProblem}
-                                storeresult={}
+                                storeprob={action2.storeProblem}
+                                conlog={action2.conlog}
                                 />
                         )
                     }

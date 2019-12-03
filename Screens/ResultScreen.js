@@ -7,7 +7,24 @@ import {HeaderoverlayConsumer} from '../contexts/Headerovelay';
 class ResultScreen extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+          
+          userID:"me",
+          schema:"team_seven",
+          lst:[],
+        };
+    }
+
+    componentWillMount() {
+      //
+      let results = this.props.navigation.getParam('data');
+      let sublst = this.state.lst;
+      for(let i=1;i<=15;i++){
+        if(!results[i].correctness){
+          sublst = sublst.concat(i+' ');
+        }
+      }
+      this.setState({lst:sublst});
     }
     
     render(){
@@ -16,21 +33,22 @@ class ResultScreen extends React.Component {
               <CustomHeader modalVisible={this.props.modalVisible} setModalVisible={(visible)=>this.props.setModalVisible(visible)}/>
               <Text style={{fontSize:20, marginLeft:30}}>수고하셨습니다!</Text>
               <View style={styles.makerow}>
-                <Text style={{fontSize:100, fontWeight:'bold', marginLeft:30}}>12/15</Text>
+                <Text style={{fontSize:100, fontWeight:'bold', marginLeft:30}}>{15 - this.state.lst.length}/15</Text>
                 <Text style={{fontSize:30}}>정답</Text>
               </View>
-              <Text style={{fontSize:25, marginLeft:40, alignSelf:'flex-end', marginBottom:10}}>오답 문항 : 3, 5, 13번 </Text>
+              <Text style={{fontSize:25, marginLeft:40, alignSelf:'flex-end', marginBottom:10}}>오답 문항 : {this.state.lst}</Text>
               <View style={styles.button}>
                 <Custombotton title='오답문항' titleColor='#fff' buttonColor='#000' onPress={() => null}/>
               </View>
               <View style={styles.ai}>
-                <Text style={{fontSize:20, fontWeight:'bold',marginBottom:20}}>인공지능 분석 결과</Text>
-                <Text>정답 문항, 걸린 시간, 오답 문항 선택 답안, 학년 등을 고려한 수능 성적 예측 결과는
-                <Text>~점 입니다.</Text></Text>
-                <Text>취약한 파트는 ~~~이고, 평균보다 뛰어난 파트는 ~~~ 입니다.</Text>
+                <Text style={{fontSize:25, fontWeight:'bold',marginBottom:20}}>인공지능 분석 결과</Text>
+                <View style={{flexDirection:'row'}}>
+                  <Text style={{fontSize:20,marginLeft:20}}>예상 등급   : </Text>
+                  <Text style={{fontSize:50, fontWeight:'bold',marginLeft:10}}>1 등급</Text>
+                </View>
               </View>
               <View style={styles.button}>
-                <Custombotton title='go Home' titleColor='#fff' buttonColor='#097234' onPress={this.props.navigation}/>
+                <Custombotton title='go Home' titleColor='#fff' buttonColor='#097234' onPress={()=>this.props.navigation.navigate('Main')}/>
               </View>
             </View>
         );
@@ -44,7 +62,7 @@ const HeaderoverlayContainer = ({navigation}) => (
               <ResultScreen
                   modalVisible={state.modalVisible}
                   setModalVisible={action.setModalVisible}
-                  navigation={() => navigation.navigate('Main')}
+                  navigation={navigation}
                   />
           )
       }
